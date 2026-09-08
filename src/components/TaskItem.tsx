@@ -15,10 +15,16 @@ function TaskItem({ task, onDelete, onSave }: TaskItemProps) {
 
     function saveTask() {
         const title = editedTitle.trim()
+
         if (title === '') return
         
-        onSave(task.id, editedTitle)
+        onSave(task.id, title)
         setIsEditing(false)
+    }
+
+    function cancelEdit(){
+        setEditedTitle(task.title);
+        setIsEditing(false);
     }
 
     return (
@@ -31,6 +37,8 @@ function TaskItem({ task, onDelete, onSave }: TaskItemProps) {
                     onChange={(event) => setEditedTitle(event.target.value)}
                 />
                 <button onClick={saveTask}>Save</button>
+
+                <button onClick={cancelEdit}>Cancel</button>
             </>
         ) : (
             <>

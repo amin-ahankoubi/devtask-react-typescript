@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from './components/Header'
 import TaskList from './components/TaskList'
 import type { Task } from './types/task'
+import TaskForm from './components/TaskForm'
 
 function App() {
 
@@ -57,7 +58,7 @@ function App() {
   }
 
   return (
-    <div>~
+    <div>
       <Header
         title="DevTask"
         description="Task management system"
@@ -67,14 +68,11 @@ function App() {
       <main>
         <h2>My Tasks</h2>
 
-        <form onSubmit={addTask}>
-          <input
-            type="text"
-            value={newTaskTitle}
-            onChange={(event) => setNewTaskTitle(event.target.value)}
-          /> <button type='submit'>Add Task</button>
-        </form>
-
+        <TaskForm
+          value={newTaskTitle}
+          onChange={setNewTaskTitle}
+          onSubmit={addTask}
+        />
 
         <TaskList
           tasks={tasks}
