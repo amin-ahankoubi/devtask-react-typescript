@@ -1,32 +1,177 @@
-# React + TypeScript + Vite
+# DevTask
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A simple and modern task management application built with **React and TypeScript**.
 
-Currently, two official plugins are available:
+DevTask is a learning-focused project created to practice modern frontend development concepts, TypeScript, component-based architecture, state management, and Git/GitHub workflows.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+* Add new tasks
+* Display a list of tasks
+* Remove tasks
+* Component-based architecture
+* Type-safe development with TypeScript
+* Responsive UI foundation
+* Clean and maintainable project structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> More features and UI improvements will be added as the project evolves.
 
-## Expanding the Oxlint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+* **React**
+* **TypeScript**
+* **Vite**
+* **CSS**
+* **JavaScript**
+* **Git & GitHub**
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Project Structure
+
+```text
+devtask-react-typescript/
+│
+├── public/
+│
+├── src/
+│   ├── assets/
+│   │
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── TaskForm.tsx
+│   │   ├── TaskItem.tsx
+│   │   └── TaskList.tsx
+│   │
+│   ├── types/
+│   │   └── task.ts
+│   │
+│   ├── App.tsx
+│   ├── App.css
+│   ├── index.css
+│   └── main.tsx
+│
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+* Node.js
+* npm
+* Git
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/amin-ahankoubi/devtask-react-typescript.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd devtask-react-typescript
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The application will be available at the local development URL shown in your terminal.
+
+## Development Workflow
+
+This project is also being used to practice a professional Git workflow.
+
+Typical development flow:
+
+```text
+Create Feature
+     ↓
+Create Branch
+     ↓
+Write Code
+     ↓
+Commit Changes
+     ↓
+Push Branch
+     ↓
+Pull Request
+     ↓
+Code Review
+     ↓
+Merge
+```
+
+Example:
+
+```bash
+git checkout -b feature/add-task-filter
+
+git add .
+
+git commit -m "feat: add task filtering"
+
+git push -u origin feature/add-task-filter
+```
+
+## Roadmap
+
+Planned improvements include:
+
+* [ ] Improve the overall UI/UX
+* [ ] Add task filtering
+* [ ] Add task editing
+* [ ] Add task completion status
+* [ ] Add local data persistence
+* [ ] Improve responsive design
+* [ ] Add form validation
+* [ ] Improve accessibility
+* [ ] Add automated tests
+* [ ] Add more advanced TypeScript patterns
+* [ ] Add CI/CD with GitHub Actions
+
+## Learning Goals
+
+The main goal of DevTask is continuous improvement through practical development.
+
+This project is being used to strengthen skills in:
+
+* React
+* TypeScript
+* JavaScript
+* Component architecture
+* State management
+* Git
+* GitHub
+* Pull Requests
+* GitHub Actions
+* Clean code
+* Frontend development best practices
+
+## Author
+
+**Amin Ahankoubi**
+
+Frontend Developer
+
+* GitHub: https://github.com/amin-ahankoubi
+* LinkedIn: www.linkedin.com/in/amin-ahankoubi-624592235
+
+---
+
+⭐ This project is continuously evolving as new frontend development concepts are learned and implemented.
