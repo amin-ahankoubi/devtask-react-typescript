@@ -35,7 +35,6 @@ function App() {
     }
   ])
 
-
   const filteredTasks = tasks.filter(task => {
 
     const matchesSearch = task.title
@@ -46,16 +45,12 @@ function App() {
       statusFilter === 'all' ||
       task.status === statusFilter
 
-      const matchesPriority =
+    const matchesPriority =
       priorityFilter === 'all' ||
       task.priority === priorityFilter
 
     return matchesSearch && matchesStatus && matchesPriority
-  }
-  )
-
-
-
+  })
 
   function deleteTask(id: number) {
     setTasks(previousTasks =>
@@ -99,7 +94,6 @@ function App() {
           ? { ...task, status }
           : task
       )
-
     )
   }
 
@@ -186,9 +180,7 @@ function App() {
               </p>
             </div>
           </section>
-
         </main>
-
       </div >
     </div >
   )

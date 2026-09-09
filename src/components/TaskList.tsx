@@ -19,6 +19,7 @@ function TaskList({
   if (tasks.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
+
         <h3 className="text-lg font-semibold text-slate-800">
           No tasks yet
         </h3>
@@ -26,6 +27,7 @@ function TaskList({
         <p className="mt-2 text-sm text-slate-500">
           Create your first task to get started.
         </p>
+
       </div>
     )
   }
