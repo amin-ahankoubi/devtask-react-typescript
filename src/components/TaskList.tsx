@@ -5,9 +5,17 @@ interface TaskListProps {
   tasks: Task[];
   onDelete: (id: number) => void;
   onSave: (id: number, title: string) => void;
+  onStatusChange: (id: number, status: Task['status']) => void;
+  onPriorityChange: (id: number, priority: Task['priority']) => void;
 }
 
-function TaskList({ tasks, onDelete, onSave }: TaskListProps) {
+function TaskList({
+  tasks,
+  onDelete,
+  onSave,
+  onStatusChange,
+  onPriorityChange,
+}: TaskListProps) {
   if (tasks.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
@@ -30,6 +38,8 @@ function TaskList({ tasks, onDelete, onSave }: TaskListProps) {
           task={task}
           onDelete={onDelete}
           onSave={onSave}
+          onStatusChange={onStatusChange}
+          onPriorityChange={onPriorityChange}
         />
       ))}
     </ul>

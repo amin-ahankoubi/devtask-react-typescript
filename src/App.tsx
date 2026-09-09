@@ -8,6 +8,12 @@ function App() {
 
   const [newTaskTitle, setNewTaskTitle] = useState('')
 
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const [statusFilter, setStatusFilter] = useState<Task['status'] | 'all'>('all')
+
+  const [priorityFilter, setPriorityFilter] = useState<Task['priority'] | 'all'>('all')
+
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: 1,
@@ -28,6 +34,27 @@ function App() {
       priority: 'high',
     }
   ])
+
+
+  const filteredTasks = tasks.filter(task => {
+
+    const matchesSearch = task.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+
+    const matchesStatus =
+      statusFilter === 'all' ||
+      task.status === statusFilter
+
+      const matchesPriority =
+      priorityFilter === 'all' ||
+      task.priority === priorityFilter
+
+    return matchesSearch && matchesStatus && matchesPriority
+  }
+  )
+
+
 
 
   function deleteTask(id: number) {
@@ -65,6 +92,27 @@ function App() {
     setNewTaskTitle('')
   }
 
+  function changeTaskStatus(id: number, status: Task['status']) {
+    setTasks(previousTasks =>
+      previousTasks.map(task =>
+        task.id === id
+          ? { ...task, status }
+          : task
+      )
+
+    )
+  }
+
+  function changeTaskPriority(id: number, priority: Task['priority']) {
+    setTasks(previousTasks =>
+      previousTasks.map(task =>
+        task.id === id
+          ? { ...task, priority }
+          : task
+      )
+    )
+  }
+
   return (
     <div className="min-h-screen bg-slate-100">
       <div className="mx-auto max-w-5xl px-4 py-8">
@@ -83,10 +131,44 @@ function App() {
             onSubmit={addTask}
           />
 
+          <input
+            type='text'
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder='Search tasks...'
+          />
+
+          <select
+            value={statusFilter}
+            onChange={(event) =>
+              setStatusFilter(event.target.value as Task['status'] | 'all')
+            }
+          >
+            <option value="all">All Statuses</option>
+            <option value="todo">To Do</option>
+            <option value="in-progress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
+
+          <select
+            value={priorityFilter}
+            onChange={(event) =>
+              setPriorityFilter(event.target.value as Task['priority'] | 'all')
+            }
+          >
+            <option value="all">All Priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+
           <TaskList
-            tasks={tasks}
+            tasks={filteredTasks}
             onDelete={deleteTask}
             onSave={editTask}
+            onStatusChange={changeTaskStatus}
+            onPriorityChange={changeTaskPriority}
+
           />
 
           <section className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -5,9 +5,18 @@ interface TaskItemProps {
     task: Task;
     onDelete: (id: number) => void;
     onSave: (id: number, title: string) => void;
+    onStatusChange: (id: number, status: Task['status']) => void;
+    onPriorityChange: (id: number, priority: Task['priority']) => void;
 }
 
-function TaskItem({ task, onDelete, onSave }: TaskItemProps) {
+function TaskItem({
+    task,
+    onDelete,
+    onSave,
+    onStatusChange,
+    onPriorityChange,
+}: TaskItemProps) {
+
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(task.title);
 
@@ -54,7 +63,7 @@ function TaskItem({ task, onDelete, onSave }: TaskItemProps) {
             {isEditing ? (
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <span className="font-semibold text-slate-500">
-                        #{task.id}
+                        {task.id} :
                     </span>
 
                     <input
@@ -87,16 +96,42 @@ function TaskItem({ task, onDelete, onSave }: TaskItemProps) {
                     </div>
                 </div>
             ) : (
-
-
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <span className="font-semibold text-slate-500">
-                        #{task.id}
+                        {task.id} :
                     </span>
 
                     <span className="min-w-0 flex-1 break-words text-slate-800">
                         {task.title}
                     </span>
+
+                    <select
+                        value={task.status}
+                        onChange={(event) =>
+                            onStatusChange(
+                                task.id,
+                                event.target.value as Task['status']
+                            )
+                        }
+                    >
+                        <option value="todo">To Do</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+
+                    <select
+                        value={task.priority}
+                        onChange={(event) =>
+                            onPriorityChange(
+                                task.id,
+                                event.target.value as Task['priority']
+                            )
+                        }
+                    >
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
 
                     <div className="flex flex-wrap gap-2">
                         <span className={`rounded-full px-3 py-1 text-xs font-medium ${statusClasses[task.status]}`}>
