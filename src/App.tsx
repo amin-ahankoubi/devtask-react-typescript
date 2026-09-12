@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import TaskList from './components/TaskList'
 import type { Task } from './types/task'
 import TaskForm from './components/TaskForm'
+import FilterBar from './components/FilterBar'
 
 function App() {
 
@@ -14,26 +15,27 @@ function App() {
 
   const [priorityFilter, setPriorityFilter] = useState<Task['priority'] | 'all'>('all')
 
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 1,
-      title: 'Learn React',
-      status: 'in-progress',
-      priority: 'high',
-    },
-    {
-      id: 2,
-      title: 'Practice TypeScript',
-      status: 'in-progress',
-      priority: 'high',
-    },
-    {
-      id: 3,
-      title: 'Build DevTask',
-      status: 'in-progress',
-      priority: 'high',
+  const [tasks, setTasks] = useState<Task[]>(() => {
+
+    const savedTasks = localStorage.getItem('devtask-tasks')
+
+    if (savedTasks) {
+      return JSON.parse(savedTasks)
     }
-  ])
+    return [
+      {
+        id: 1,
+        title: 'New Task',
+        status: 'in-progress',
+        priority: 'high',
+      }
+    ]
+  }
+  )
+
+  useEffect(() => {
+    localStorage.setItem('devtask-tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   const filteredTasks = tasks.filter(task => {
 
@@ -107,6 +109,12 @@ function App() {
     )
   }
 
+  function clearFilters() {
+    setSearchTerm('')
+    setStatusFilter('all')
+    setPriorityFilter('all')
+  }
+
   return (
     <div className="min-h-screen bg-slate-100">
       <div className="mx-auto max-w-5xl px-4 py-8">
@@ -125,36 +133,17 @@ function App() {
             onSubmit={addTask}
           />
 
-          <input
-            type='text'
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder='Search tasks...'
+          <FilterBar
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            statusFilter={statusFilter}
+            onStatusChange={setStatusFilter}
+            priorityFilter={priorityFilter}
+            onPriorityChange={setPriorityFilter}
+            onClear={clearFilters}
+            resultCount={filteredTasks.length}
+            totalCount={tasks.length}
           />
-
-          <select
-            value={statusFilter}
-            onChange={(event) =>
-              setStatusFilter(event.target.value as Task['status'] | 'all')
-            }
-          >
-            <option value="all">All Statuses</option>
-            <option value="todo">To Do</option>
-            <option value="in-progress">In Progress</option>
-            <option value="done">Done</option>
-          </select>
-
-          <select
-            value={priorityFilter}
-            onChange={(event) =>
-              setPriorityFilter(event.target.value as Task['priority'] | 'all')
-            }
-          >
-            <option value="all">All Priority</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
 
           <TaskList
             tasks={filteredTasks}
