@@ -15,23 +15,66 @@ function App() {
 
   const [priorityFilter, setPriorityFilter] = useState<Task['priority'] | 'all'>('all')
 
-  const [tasks, setTasks] = useState<Task[]>(() => {
+  const initialTasks: Task[] = [
+    {
+      id: 1,
+      title: 'Task',
+      status: 'in-progress',
+      priority: 'high',
+    },
+  ]
 
+  const [tasks, setTasks] = useState<Task[]>(() => {
     const savedTasks = localStorage.getItem('devtask-tasks')
 
     if (savedTasks) {
-      return JSON.parse(savedTasks)
-    }
-    return [
-      {
-        id: 1,
-        title: 'New Task',
-        status: 'in-progress',
-        priority: 'high',
+      try {
+        const parsedTasks = JSON.parse(savedTasks)
+
+        if (isTaskArray(parsedTasks)) {
+          return parsedTasks
+        }
+
+        return initialTasks
+      } catch {
+        return initialTasks
       }
-    ]
+    }
+
+    return initialTasks
+  })
+
+  function isTask(value: unknown) {
+    return (
+      typeof value === 'object' &&
+      value !== null &&
+      typeof value.id === 'number' &&
+      typeof value.title === 'string'
+      &&
+      (
+        value.status === 'todo' ||
+        value.status === 'in-progress' ||
+        value.status === 'done'
+      )
+      &&
+      (
+        value.priority === 'low' ||
+        value.priority === 'medium' ||
+        value.priority === 'high'
+      )
+    )
   }
-  )
+
+  function isTaskArray(value: unknown) {
+    return Array.isArray(value) && value.every(item => isTask(item))
+  }
+
+  console.log(isTask({
+    id: 1,
+    title: 'Learn React',
+    status: 'done',
+    priority: 'high'
+  }))
 
   useEffect(() => {
     localStorage.setItem('devtask-tasks', JSON.stringify(tasks))
@@ -125,7 +168,10 @@ function App() {
         />
 
         <main className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-          <h2>My Tasks</h2>
+          <h2
+            className='my-3 text-2xl font-bold tracking-tight text-slate-900'>
+            My Tasks
+          </h2>
 
           <TaskForm
             value={newTaskTitle}
@@ -155,7 +201,7 @@ function App() {
           />
 
           <section className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="my-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <p className="text-sm font-medium text-slate-500">
                 Total Tasks
               </p>
