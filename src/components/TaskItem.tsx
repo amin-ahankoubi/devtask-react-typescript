@@ -70,27 +70,19 @@ function TaskItem({
                         type="text"
                         value={editedTitle}
                         onChange={(event) => setEditedTitle(event.target.value)}
-                        className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-2
-                       text-slate-900 outline-none transition
-                       focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+                        className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                     />
 
                     <div className="flex gap-2">
                         <button
                             onClick={saveTask}
-                            className="rounded-lg bg-slate-900 px-4 py-2
-                         text-sm font-medium text-white transition
-                         hover:bg-slate-700"
-                        >
+                            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700">
                             Save
                         </button>
 
                         <button
                             onClick={cancelEdit}
-                            className="rounded-lg border border-slate-300 px-4 py-2
-                         text-sm font-medium text-slate-700 transition
-                         hover:bg-slate-100"
-                        >
+                            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100">
                             Cancel
                         </button>
                     </div>
@@ -146,19 +138,13 @@ function TaskItem({
                     <div className="flex gap-2">
                         <button
                             onClick={() => setIsEditing(true)}
-                            className="rounded-lg border border-slate-300 px-4 py-2
-                         text-sm font-medium text-slate-700 transition
-                         hover:bg-slate-100"
-                        >
+                            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100">
                             Edit
                         </button>
 
                         <button
                             onClick={() => onDelete(task.id)}
-                            className="rounded-lg bg-red-500 px-4 py-2
-                         text-sm font-medium text-white transition
-                         hover:bg-red-600"
-                        >
+                            className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600">
                             Delete
                         </button>
                     </div>
